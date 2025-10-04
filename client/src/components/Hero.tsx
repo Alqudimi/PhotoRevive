@@ -16,7 +16,7 @@ export function Hero({ onUploadClick, onExamplesClick }: HeroProps) {
           <div className="space-y-8">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium">
               <Sparkles className="w-4 h-4" />
-              <span>AI-Powered Technology</span>
+              <span>Alqudimi Technology</span>
             </div>
             
             <h1 className="text-5xl lg:text-6xl font-bold tracking-tight leading-tight">
@@ -25,7 +25,7 @@ export function Hero({ onUploadClick, onExamplesClick }: HeroProps) {
             </h1>
             
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Transform damaged, faded memories into vibrant, high-quality images with our advanced AI restoration technology. Automatically remove scratches, add realistic colors, and enhance quality.
+              Transform damaged, faded memories into vibrant, high-quality images with our advanced Alqudimi restoration technology. Automatically remove scratches, add realistic colors, and enhance quality.
             </p>
             
             <div className="flex flex-wrap gap-4">
@@ -53,7 +53,7 @@ export function Hero({ onUploadClick, onExamplesClick }: HeroProps) {
                 <div className="w-8 h-8 rounded-full bg-primary/30 border-2 border-background" />
                 <div className="w-8 h-8 rounded-full bg-primary/40 border-2 border-background" />
               </div>
-              <span>10,000+ photos restored with AI</span>
+              <span>10,000+ photos restored with Alqudimi</span>
             </div>
           </div>
           

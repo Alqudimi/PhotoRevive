@@ -15,7 +15,7 @@ export function Footer() {
               <span className="font-bold text-lg">PhotoReviver</span>
             </div>
             <p className="text-sm text-muted-foreground">
-              Bringing your old photos back to life with advanced AI technology.
+              Bringing your old photos back to life with advanced Alqudimi Technology.
             </p>
             <div className="flex gap-2">
               <Button variant="ghost" size="icon" data-testid="link-github">

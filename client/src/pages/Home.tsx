@@ -4,7 +4,7 @@ import { Hero } from "@/components/Hero";
 import { HowItWorks } from "@/components/HowItWorks";
 import { Features } from "@/components/Features";
 import { ExamplesGallery } from "@/components/ExamplesGallery";
-import { UploadZone } from "@/components/UploadZone";
+import { UploadZone, ProcessingOptions } from "@/components/UploadZone";
 import { ProcessingOverlay } from "@/components/ProcessingOverlay";
 import { ComparisonSlider } from "@/components/ComparisonSlider";
 import { Footer } from "@/components/Footer";
@@ -33,7 +33,7 @@ export default function Home() {
     document.getElementById("examples")?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const handleFileSelect = async (file: File) => {
+  const handleFileSelect = async (file: File, options: ProcessingOptions) => {
     setSelectedFile(file);
     const fileUrl = URL.createObjectURL(file);
     setBeforeImageUrl(fileUrl);
@@ -66,6 +66,17 @@ export default function Home() {
     try {
       const formData = new FormData();
       formData.append("file", file);
+      
+      if (options.instruction) {
+        formData.append("instruction", options.instruction);
+      }
+      
+      formData.append("enable_super_resolution", String(options.enableSuperResolution));
+      formData.append("enable_face_enhancement", String(options.enableFaceEnhancement));
+      formData.append("enable_colorization", String(options.enableColorization));
+      formData.append("enable_inpainting", String(options.enableInpainting));
+      formData.append("sr_scale", String(options.srScale));
+      formData.append("face_fidelity", String(options.faceFidelity));
 
       const response = await fetch("/api/restore", {
         method: "POST",
@@ -76,7 +87,7 @@ export default function Home() {
         let errorMessage = "Failed to process image";
         try {
           const errorData = await response.json();
-          errorMessage = errorData.error || errorData.message || errorMessage;
+          errorMessage = errorData.detail || errorData.error || errorData.message || errorMessage;
         } catch {
           errorMessage = `Server error: ${response.status} ${response.statusText}`;
         }
@@ -108,7 +119,7 @@ export default function Home() {
       } else if (error.status === 503 || error.message?.toLowerCase().includes("unavailable") || error.message?.toLowerCase().includes("service")) {
         errorMessage = "AI service is currently unavailable. Please wait a moment and try again.";
       } else if (error.message?.includes("Failed to fetch") || error.name === "TypeError") {
-        errorMessage = "Connection error. Please check your internet connection and ensure the Python API is running.";
+        errorMessage = "Connection error. Please check your internet connection and ensure the server is running.";
       } else if (error.message && error.message !== "Failed to process image") {
         errorMessage = error.message;
       }
@@ -165,7 +176,7 @@ export default function Home() {
             <div className="container mx-auto px-4 text-center space-y-8">
               <h2 className="text-4xl font-bold">Ready to Restore Your Memories?</h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Upload your old photo now and see the magic of AI restoration in action
+                Upload your old photo now and see the magic of Alqudimi restoration in action
               </p>
               <Button size="lg" onClick={handleUploadClick} data-testid="button-cta-final">
                 Get Started Now
@@ -188,7 +199,7 @@ export default function Home() {
                     <div className="text-center space-y-4">
                       <h2 className="text-4xl font-bold">Upload Your Photo</h2>
                       <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                        Select an old or damaged photo to restore with AI
+                        Select an old or damaged photo to restore with Alqudimi Technology
                       </p>
                     </div>
                     <UploadZone onFileSelect={handleFileSelect} />
@@ -200,7 +211,7 @@ export default function Home() {
                     <div className="text-center space-y-4">
                       <h2 className="text-4xl font-bold">Your Restored Photo</h2>
                       <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                        Compare the original with the AI-enhanced version
+                        Compare the original with the Alqudimi-enhanced version
                       </p>
                     </div>
                     <ComparisonSlider
